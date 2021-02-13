@@ -21,21 +21,31 @@ config = loadjson('config.json','ParseStringArray',1); % requires submodule to r
 %% Parameters
 % Subject name
 SubjectName = 'Subject01';
-ProtocolName = 'Protocol01';
+ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
 AnatDir = fullfile(config.output);
+ReportsDir = 'out_dir/';
+DataDir = 'out_data/';
 
-%% CREATE PROTOCOL 
-disp([10 '> Step #1: Create protocol' 10]);
-% The protocol name has to be a valid folder name (no spaces, no weird characters...)
+%% START BRAINSTORM
 % Start brainstorm without the GUI
 if ~brainstorm('status')
 %   brainstorm nogui
     brainstorm server
 end
-% Delete existing protocol
-gui_brainstorm('DeleteProtocol', ProtocolName);
+
+%% CREATE PROTOCOL 
+disp([10 '> Step #1: Create protocol' 10]);
+
+% Find existing protocol
+p = bst_get('Protocol', ProtocolName);
+if ~isempty(p)
+    % Delete existing protocol
+    gui_brainstorm('DeleteProtocol', ProtocolName);
+end
+
 % Create new protocol
 gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
+
 % Start a new report
 bst_report('Start');
 % Reset colormaps
@@ -58,9 +68,7 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
     'pc',  [0, 0, 0], ...
     'ih',  [0, 0, 0]);
 % This automatically calls the SPM registration procedure because the AC/PC/IH points are not defined
-%   'nas', [127, 213, 139], ...
-%     'lpa', [ 52, 113,  96], ...
-%     'rpa', [202, 113,  91], ...
+
 % //// FUTURE: load fiducial points from file if available: nas, lpa, rpa
 
 %% EXPLORE ANATOMY
@@ -96,15 +104,14 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 %% SAVE REPORT
 % Save and display report
 ReportFile = bst_report('Save', []);
-reports_dir = 'out_dir/';
-if ~isempty(reports_dir) && ~isempty(ReportFile)
-    bst_report('Export', ReportFile, reports_dir);
+if ~isempty(ReportsDir) && ~isempty(ReportFile)
+    bst_report('Export', ReportFile, ReportsDir);
 else
     bst_report('Open', ReportFile);
 end
 
 %% SAVE DATA
-copyfile([BrainstormDbDir,ProtocolName], 'out_data');
+copyfile([BrainstormDbDir,'/',ProtocolName], DataDir);
 
 %% DONE
 disp([10 '> Done.' 10]);
