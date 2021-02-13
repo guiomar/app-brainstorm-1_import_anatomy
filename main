@@ -10,6 +10,7 @@
 
 # run MatLab code
 mkdir -p out_dir
+mkdir -p out_data
 
 matlab -nodisplay -r main
 
