@@ -11,6 +11,7 @@
 % Added to this App GitHub repository and automatically downloaded with the App 
 % Need to add them MatLab path:
 addpath(genpath(pwd))
+addpath(genpath('/Users/guiomar/Documents/SOFTWARE/brainstorm3'))
 
 %% Load config.json
 % Load inputs from config.json
@@ -20,15 +21,16 @@ config = loadjson('config.json','ParseStringArray',1); % requires submodule to r
 %% Parameters
 % Subject name
 SubjectName = 'Subject01';
+ProtocolName = 'Protocol01';
 AnatDir = fullfile(config.output);
 
 %% CREATE PROTOCOL 
 disp([10 '> Step #1: Create protocol' 10]);
 % The protocol name has to be a valid folder name (no spaces, no weird characters...)
-ProtocolName = 'Protocol01';
 % Start brainstorm without the GUI
 if ~brainstorm('status')
-    brainstorm nogui
+%   brainstorm nogui
+    brainstorm server
 end
 % Delete existing protocol
 gui_brainstorm('DeleteProtocol', ProtocolName);
@@ -38,6 +40,9 @@ gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 bst_report('Start');
 % Reset colormaps
 bst_colormaps('RestoreDefaults', 'meg');
+
+%BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
+BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% IMPORT ANATOMY 
 disp([10 '> Step #2: Import anatomy' 10]);
@@ -58,45 +63,48 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 %     'rpa', [202, 113,  91], ...
 % //// FUTURE: load fiducial points from file if available: nas, lpa, rpa
 
-%% ===== TUTORIAL #3: EXPLORE ANATOMY ================================================
-%  ===================================================================================
-disp([10 '> Step #3: Explore anatomy' 10]);
-% Get subject definition
-sSubject = bst_get('Subject', SubjectName);
-% Get MRI file and surface files
-MriFile    = sSubject.Anatomy(sSubject.iAnatomy).FileName;
-CortexFile = sSubject.Surface(sSubject.iCortex).FileName;
-HeadFile   = sSubject.Surface(sSubject.iScalp).FileName;
-% Display MRI
-hFigMri1 = view_mri(MriFile);
-hFigMri3 = view_mri_3d(MriFile, [], [], 'NewFigure');
-hFigMri2 = view_mri_slices(MriFile, 'x', 20); 
-pause(0.5);
-% Close figures
-close([hFigMri1 hFigMri2 hFigMri3]);
-% Display scalp and cortex
-hFigSurf = view_surface(HeadFile);
-hFigSurf = view_surface(CortexFile, [], [], hFigSurf);
-hFigMriSurf = view_mri(MriFile, CortexFile);
-% Figure configuration
-iTess = 2;
-panel_surface('SetShowSulci',     hFigSurf, iTess, 1);
-panel_surface('SetSurfaceColor',  hFigSurf, iTess, [1 0 0]);
-panel_surface('SetSurfaceSmooth', hFigSurf, iTess, 0.5, 0);
-panel_surface('SetSurfaceTransparency', hFigSurf, iTess, 0.8);
-figure_3d('SetStandardView', hFigSurf, 'left');
-pause(0.5);
-% Close figures
-close([hFigSurf hFigMriSurf]);
+%% EXPLORE ANATOMY
+% disp([10 '> Step #3: Explore anatomy' 10]);
+% % Get subject definition
+% sSubject = bst_get('Subject', SubjectName);
+% % Get MRI file and surface files
+% MriFile    = sSubject.Anatomy(sSubject.iAnatomy).FileName;
+% CortexFile = sSubject.Surface(sSubject.iCortex).FileName;
+% HeadFile   = sSubject.Surface(sSubject.iScalp).FileName;
+% % Display MRI
+% hFigMri1 = view_mri(MriFile);
+% hFigMri3 = view_mri_3d(MriFile, [], [], 'NewFigure');
+% hFigMri2 = view_mri_slices(MriFile, 'x', 20); 
+% pause();
+% % Close figures
+% close([hFigMri1 hFigMri2 hFigMri3]);
+% % Display scalp and cortex
+% hFigSurf = view_surface(HeadFile);
+% hFigSurf = view_surface(CortexFile, [], [], hFigSurf);
+% hFigMriSurf = view_mri(MriFile, CortexFile);
+% % Figure configuration
+% iTess = 2;
+% panel_surface('SetShowSulci',     hFigSurf, iTess, 1);
+% panel_surface('SetSurfaceColor',  hFigSurf, iTess, [1 0 0]);
+% panel_surface('SetSurfaceSmooth', hFigSurf, iTess, 0.5, 0);
+% panel_surface('SetSurfaceTransparency', hFigSurf, iTess, 0.8);
+% figure_3d('SetStandardView', hFigSurf, 'left');
+% pause();
+% % Close figures
+% close([hFigSurf hFigMriSurf]);
 
 %% SAVE REPORT
 % Save and display report
 ReportFile = bst_report('Save', []);
-reports_dir = [];
+reports_dir = 'out_dir/';
 if ~isempty(reports_dir) && ~isempty(ReportFile)
     bst_report('Export', ReportFile, reports_dir);
 else
     bst_report('Open', ReportFile);
 end
 
+%% SAVE DATA
+copyfile([BrainstormDbDir,ProtocolName], 'out_data');
+
+%% DONE
 disp([10 '> Done.' 10]);

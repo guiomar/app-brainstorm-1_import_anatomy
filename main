@@ -9,4 +9,7 @@
 # Author: Guiomar Niso
 
 # run MatLab code
-./main.m
+mkdir -p out_dir
+
+matlab -nodisplay -r main
+
