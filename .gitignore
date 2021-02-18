@@ -1,3 +1,5 @@
 # Temporary MatLab files
 *.m~
 *.json~
+*.DS_Store
+
