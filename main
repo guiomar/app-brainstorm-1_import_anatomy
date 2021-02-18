@@ -8,10 +8,15 @@
 #
 # Author: Guiomar Niso
 
-# run MatLab code
 mkdir -p out_dir
 mkdir -p out_data
 
+# Run MatLab code local
 matlab -nodisplay -r main
-matlab exit
+# matlab exit
+
+
+# Run app in brainlife
+# singularity exec -e docker://brainlife/mcr:2020a ./compiled/main
+
 
