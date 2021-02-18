@@ -11,7 +11,7 @@
 % Added to this App GitHub repository and automatically downloaded with the App 
 % Need to add them MatLab path:
 addpath(genpath(pwd))
-addpath(genpath('/Users/guiomar/Documents/SOFTWARE/brainstorm3'))
+% addpath(genpath('/Users/guiomar/Documents/SOFTWARE/brainstorm3'))
 
 %% Load config.json
 % Load inputs from config.json
