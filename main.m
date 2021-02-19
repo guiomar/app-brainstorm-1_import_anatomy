@@ -10,9 +10,12 @@
 % Submodules: libraries necessary to run the code
 % Added to this App GitHub repository and automatically downloaded with the App 
 % Need to add them MatLab path:
+
+pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
+% pathStr = '/home/user/brainstorm3/';
 if ~isdeployed
-    addpath(genpath(pwd))
-    % addpath(genpath('/Users/guiomar/Documents/SOFTWARE/brainstorm3'))
+    addpath(genpath('jsonlab'));
+    addpath(genpath(pathBst));
 end
 
 %% Load config.json
@@ -20,44 +23,65 @@ end
 % Inputs are stored in config.input1, config.input2, etc
 config = loadjson('config.json','ParseStringArray',1); % requires submodule to read JSON files in MatLab
 
-%% Parameters
-% Subject name
-SubjectName = 'Subject01';
-ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
+%% Some paths
+
+% BrainstormDbDir = '/home/user/brainstorm_db';
+BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
+
 AnatDir = fullfile(config.output);
 ReportsDir = 'out_dir/';
 DataDir = 'out_data/';
 
 %% START BRAINSTORM
-% Start brainstorm without the GUI
+% Start Brainstorm
 if ~brainstorm('status')
-%   brainstorm nogui
     brainstorm server
 end
+% Set Brainstorm database directory
+bst_set('BrainstormDbDir',BrainstormDbDir)
+% Set Brainstorm database directory interactively
+% BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
+% Get Brainstorm database directory
+% BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% CREATE PROTOCOL 
-disp([10 '> Step #1: Create protocol' 10]);
+disp(['1) Create protocol']);
+
+ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
+SubjectName = 'Subject01';
+
+% sProtocol.Comment = ProtocolName;
+% sProtocol.SUBJECTS = [home 'anat'];
+% sProtocol.STUDIES = [home 'data'];
+% db_edit_protocol('load',sProtocol);
 
 % Find existing protocol
-p = bst_get('Protocol', ProtocolName);
-if ~isempty(p)
+iProtocol = bst_get('Protocol', ProtocolName);
+
+% SELECT CURRENT PROTOCOL
+% if isempty(iProtocol)
+%     error(['Unknown protocol: ' ProtocolName]);
+% end
+% % Select the current procotol
+% gui_brainstorm('SetCurrentProtocol', iProtocol);
+
+% CREATE NEW PROTOCOL
+if ~isempty(iProtocol)
     % Delete existing protocol
     gui_brainstorm('DeleteProtocol', ProtocolName);
 end
-
 % Create new protocol
 gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 
+
+%% Start report
 % Start a new report
 bst_report('Start');
 % Reset colormaps
 bst_colormaps('RestoreDefaults', 'meg');
 
-%BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
-BrainstormDbDir = bst_get('BrainstormDbDir');
-
-%% IMPORT ANATOMY 
-disp([10 '> Step #2: Import anatomy' 10]);
+%% IMPORT ANATOMY
+disp(['2) Import anatomy']);
 % Process: Import FreeSurfer folder
 bst_process('CallProcess', 'process_import_anatomy', [], [], ...
     'subjectname', SubjectName, ...
@@ -73,36 +97,6 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 
 % //// FUTURE: load fiducial points from file if available: nas, lpa, rpa
 
-%% EXPLORE ANATOMY
-% disp([10 '> Step #3: Explore anatomy' 10]);
-% % Get subject definition
-% sSubject = bst_get('Subject', SubjectName);
-% % Get MRI file and surface files
-% MriFile    = sSubject.Anatomy(sSubject.iAnatomy).FileName;
-% CortexFile = sSubject.Surface(sSubject.iCortex).FileName;
-% HeadFile   = sSubject.Surface(sSubject.iScalp).FileName;
-% % Display MRI
-% hFigMri1 = view_mri(MriFile);
-% hFigMri3 = view_mri_3d(MriFile, [], [], 'NewFigure');
-% hFigMri2 = view_mri_slices(MriFile, 'x', 20); 
-% pause();
-% % Close figures
-% close([hFigMri1 hFigMri2 hFigMri3]);
-% % Display scalp and cortex
-% hFigSurf = view_surface(HeadFile);
-% hFigSurf = view_surface(CortexFile, [], [], hFigSurf);
-% hFigMriSurf = view_mri(MriFile, CortexFile);
-% % Figure configuration
-% iTess = 2;
-% panel_surface('SetShowSulci',     hFigSurf, iTess, 1);
-% panel_surface('SetSurfaceColor',  hFigSurf, iTess, [1 0 0]);
-% panel_surface('SetSurfaceSmooth', hFigSurf, iTess, 0.5, 0);
-% panel_surface('SetSurfaceTransparency', hFigSurf, iTess, 0.8);
-% figure_3d('SetStandardView', hFigSurf, 'left');
-% pause();
-% % Close figures
-% close([hFigSurf hFigMriSurf]);
-
 %% SAVE REPORT
 % Save and display report
 ReportFile = bst_report('Save', []);
@@ -116,4 +110,4 @@ end
 copyfile([BrainstormDbDir,'/',ProtocolName], DataDir);
 
 %% DONE
-disp([10 '> Done.' 10]);
+disp(['> Done!']);
