@@ -12,11 +12,11 @@ mkdir -p out_dir
 mkdir -p out_data
 
 # Run MatLab code local
-matlab -nodisplay -r main
+# matlab -nodisplay -r main
 # matlab exit
 
 
 # Run app in brainlife
-# singularity exec -e docker://brainlife/mcr:2020a ./compiled/main
+singularity exec -e docker://brainlife/mcr:2020a ./compiled/main
 
 
