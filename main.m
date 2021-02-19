@@ -12,7 +12,7 @@
 % Need to add them MatLab path:
 
 pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
-% pathStr = '/home/user/brainstorm3/';
+
 if ~isdeployed
     addpath(genpath('jsonlab'));
     addpath(genpath(pathBst));
@@ -25,7 +25,6 @@ config = loadjson('config.json','ParseStringArray',1); % requires submodule to r
 
 %% Some paths
 
-% BrainstormDbDir = '/home/user/brainstorm_db';
 BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
 
 AnatDir = fullfile(config.output);
