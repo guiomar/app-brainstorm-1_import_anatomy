@@ -21,7 +21,10 @@ end
 %% Load config.json
 % Load inputs from config.json
 % Inputs are stored in config.input1, config.input2, etc
-config = loadjson('config.json','ParseStringArray',1); % requires submodule to read JSON files in MatLab
+%fid = fopen('config.json')
+%config_json = char(fread(fid)')
+%fclose(fid)
+config = jsondecode(fileread('config.json'))
 
 %% Some paths
 
