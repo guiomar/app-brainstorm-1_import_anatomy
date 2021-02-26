@@ -45,12 +45,16 @@ SubjectName = 'Subject01';
 
 %% START BRAINSTORM
 % Start Brainstorm
+disp('set db 0')
+
 if ~brainstorm('status')
     brainstorm server
 end
+disp('set db 1')
+
 % Set Brainstorm database directory
 bst_set('BrainstormDbDir',BrainstormDbDir)
-disp('set db')
+disp('set db 2')
 % Set Brainstorm database directory interactively
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
 % Get Brainstorm database directory
