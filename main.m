@@ -32,7 +32,7 @@ config = jsondecode(fileread('config.json'));
 
 % BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
 % BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
-BrainstormDbDir = 'brainstorm_db';
+BrainstormDbDir = 'brainstorm_db/';
 
 AnatDir = fullfile(config.output);
 % AnatDir = '/media/data/guiomar/data/anat/';
@@ -50,6 +50,7 @@ if ~brainstorm('status')
 end
 % Set Brainstorm database directory
 bst_set('BrainstormDbDir',BrainstormDbDir)
+disp('set db')
 % Set Brainstorm database directory interactively
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
 % Get Brainstorm database directory
