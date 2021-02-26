@@ -11,7 +11,8 @@
 % Added to this App GitHub repository and automatically downloaded with the App 
 % Need to add them MatLab path:
 
-pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
+%pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
+pathBst = '/media/data/guiomar/app-brainstorm-1_import_anatomy/brainstorm3';
 
 if ~isdeployed
     addpath(genpath('jsonlab'));
@@ -21,6 +22,7 @@ end
 %% Load config.json
 % Load inputs from config.json
 % Inputs are stored in config.input1, config.input2, etc
+% config = loadjson('config.json','ParseStringArray',1); % requires submodule to read JSON files in MatLab
 %fid = fopen('config.json')
 %config_json = char(fread(fid)')
 %fclose(fid)
@@ -28,9 +30,11 @@ config = jsondecode(fileread('config.json'))
 
 %% Some paths
 
-BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
+% BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
+BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
 
-AnatDir = fullfile(config.output);
+% AnatDir = fullfile(config.output);
+AnatDir = '/media/data/guiomar/data/anat/';
 ReportsDir = 'out_dir/';
 DataDir = 'out_data/';
 
