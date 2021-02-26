@@ -12,12 +12,12 @@
 % Need to add them MatLab path:
 
 %pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
-pathBst = '/media/data/guiomar/app-brainstorm-1_import_anatomy/brainstorm3';
+%pathBst = '/media/data/guiomar/app-brainstorm-1_import_anatomy/brainstorm3';
 
-if ~isdeployed
-    addpath(genpath('jsonlab'));
-    addpath(genpath(pathBst));
-end
+% if ~isdeployed
+%     addpath(genpath('jsonlab'));
+%     addpath(genpath(pathBst));
+% end
 
 %% Load config.json
 % Load inputs from config.json
@@ -26,17 +26,21 @@ end
 %fid = fopen('config.json')
 %config_json = char(fread(fid)')
 %fclose(fid)
-config = jsondecode(fileread('config.json'))
+config = jsondecode(fileread('config.json'));
 
 %% Some paths
 
 % BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
 BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
 
-% AnatDir = fullfile(config.output);
-AnatDir = '/media/data/guiomar/data/anat/';
+AnatDir = fullfile(config.output);
+% AnatDir = '/media/data/guiomar/data/anat/';
 ReportsDir = 'out_dir/';
 DataDir = 'out_data/';
+
+%% Parameters
+ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
+SubjectName = 'Subject01';
 
 %% START BRAINSTORM
 % Start Brainstorm
@@ -52,9 +56,6 @@ bst_set('BrainstormDbDir',BrainstormDbDir)
 
 %% CREATE PROTOCOL 
 disp(['1) Create protocol']);
-
-ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
-SubjectName = 'Subject01';
 
 % sProtocol.Comment = ProtocolName;
 % sProtocol.SUBJECTS = [home 'anat'];
