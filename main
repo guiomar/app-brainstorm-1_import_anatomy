@@ -13,7 +13,7 @@ mkdir -p out_data
 
 # Run MatLab code local
 # matlab -nodisplay -r main
-# matlab exit
+# ./brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98/ main.m
 
 
 # Run app in brainlife
