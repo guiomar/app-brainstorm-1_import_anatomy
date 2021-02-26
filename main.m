@@ -31,7 +31,8 @@ config = jsondecode(fileread('config.json'));
 %% Some paths
 
 % BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
-BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
+% BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
+BrainstormDbDir = 'brainstorm_db';
 
 AnatDir = fullfile(config.output);
 % AnatDir = '/media/data/guiomar/data/anat/';
