@@ -10,6 +10,7 @@
 
 mkdir -p out_dir
 mkdir -p out_data
+mkdir -p brainstorm_db
 
 # Run MatLab code local
 # matlab -nodisplay -r main
