@@ -47,9 +47,9 @@ SubjectName = 'Subject01';
 % Start Brainstorm
 disp('set db 0')
 
-if ~brainstorm('status')
+%if ~brainstorm('status')
     brainstorm server local
-end
+%end
 disp('set db 1')
 
 % Set Brainstorm database directory
