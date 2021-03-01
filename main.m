@@ -32,7 +32,7 @@ config = jsondecode(fileread('config.json'));
 
 % BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
 % BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
-BrainstormDbDir = 'brainstorm_db/';
+% BrainstormDbDir = 'brainstorm_db/';
 
 AnatDir = fullfile(config.output);
 % AnatDir = '/media/data/guiomar/data/anat/';
@@ -53,12 +53,12 @@ end
 disp('set db 1')
 
 % Set Brainstorm database directory
-bst_set('BrainstormDbDir',BrainstormDbDir)
+% bst_set('BrainstormDbDir',BrainstormDbDir)
 disp('set db 2')
 % Set Brainstorm database directory interactively
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
 % Get Brainstorm database directory
-% BrainstormDbDir = bst_get('BrainstormDbDir');
+ BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% CREATE PROTOCOL 
 disp(['1) Create protocol']);
