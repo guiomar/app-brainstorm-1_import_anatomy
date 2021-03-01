@@ -48,7 +48,7 @@ SubjectName = 'Subject01';
 disp('set db 0')
 
 if ~brainstorm('status')
-    brainstorm server
+    brainstorm server local
 end
 disp('set db 1')
 
