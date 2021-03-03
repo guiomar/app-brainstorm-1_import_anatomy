@@ -49,14 +49,14 @@ disp(['2) Create protocol']);
 % db_edit_protocol('load',sProtocol);
 
 % Find existing protocol
-iProtocol = bst_get('Protocol', ProtocolName);
-
-if ~isempty(iProtocol)
-    % Delete existing protocol
-    gui_brainstorm('DeleteProtocol', ProtocolName);
-    % Select the current procotol
-    % gui_brainstorm('SetCurrentProtocol', iProtocol);
-end
+% iProtocol = bst_get('Protocol', ProtocolName);
+% 
+% if ~isempty(iProtocol)
+%     % Delete existing protocol
+%     gui_brainstorm('DeleteProtocol', ProtocolName);
+%     % Select the current procotol
+%     % gui_brainstorm('SetCurrentProtocol', iProtocol);
+% end
 % Create new protocol
 gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 
