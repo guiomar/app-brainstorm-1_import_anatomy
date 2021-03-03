@@ -51,8 +51,10 @@ disp(['2) Create protocol']);
 % Find existing protocol
 iProtocol = bst_get('Protocol', ProtocolName);
 disp(['iProtocol: ',num2str(iProtocol)]);
+
 disp(['Delete protocol1']);
 gui_brainstorm('DeleteProtocol', ProtocolName);
+
 if ~isempty(iProtocol)
     % Delete existing protocol
     disp(['Delete protocol']);
@@ -60,9 +62,16 @@ if ~isempty(iProtocol)
     % Select the current procotol
     % gui_brainstorm('SetCurrentProtocol', iProtocol);
 end
-% Create new protocol
-disp(['Create protocol1']);
-gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
+
+iProtocol = bst_get('Protocol', ProtocolName);
+disp(['iProtocol: ',num2str(iProtocol)]);
+
+if isempty(iProtocol)
+    % Create new protocol
+    disp(['Create new protocol']);
+    gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
+end 
+
 
 % Start a new report
 bst_report('Start');
