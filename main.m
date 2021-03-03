@@ -31,9 +31,9 @@ SubjectName = 'Subject01';
 disp(['1) Start Brainstorm on server mode']);
 
 % Start Brainstorm
-if ~brainstorm('status')
-    brainstorm server local
-end
+% if ~brainstorm('status')
+%     brainstorm server local
+% end
 
 % Set Brainstorm database directory
 bst_set('BrainstormDbDir',BrainstormDbDir)
