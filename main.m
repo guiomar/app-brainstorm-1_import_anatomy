@@ -53,6 +53,7 @@ iProtocol = bst_get('Protocol', ProtocolName);
 
 if ~isempty(iProtocol)
     % Delete existing protocol
+    disp(['Delete protocol']);
     gui_brainstorm('DeleteProtocol', ProtocolName);
     % Select the current procotol
     % gui_brainstorm('SetCurrentProtocol', iProtocol);
