@@ -50,7 +50,7 @@ disp(['2) Create protocol']);
 
 % Find existing protocol
 iProtocol = bst_get('Protocol', ProtocolName);
-disp(['iProtocol ',iProtocol]);
+disp(['iProtocol: ',num2str(iProtocol)]);
 
 if ~isempty(iProtocol)
     % Delete existing protocol
