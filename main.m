@@ -13,7 +13,7 @@ config = jsondecode(fileread('config.json'));
 %% Some paths
 
 % Directory with the segmented anatomy (e.g. freesufer output)
-AnatDir = [fullfile(config.output),'/'];
+AnatDir = [fullfile(config.output),'/mri/'];
 
 % Directory to store results
 ReportsDir = 'out_dir/';
