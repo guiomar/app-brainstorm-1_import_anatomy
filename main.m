@@ -6,62 +6,42 @@
 %
 % Indiana University
 
-%% Add submodules
-% Submodules: libraries necessary to run the code
-% Added to this App GitHub repository and automatically downloaded with the App 
-% Need to add them MatLab path:
-
-%pathBst = '/Users/guiomar/Documents/SOFTWARE/brainstorm3';
-%pathBst = '/media/data/guiomar/app-brainstorm-1_import_anatomy/brainstorm3';
-
-% if ~isdeployed
-%     addpath(genpath('jsonlab'));
-%     addpath(genpath(pathBst));
-% end
-
 %% Load config.json
 % Load inputs from config.json
-% Inputs are stored in config.input1, config.input2, etc
-% config = loadjson('config.json','ParseStringArray',1); % requires submodule to read JSON files in MatLab
-%fid = fopen('config.json')
-%config_json = char(fread(fid)')
-%fclose(fid)
 config = jsondecode(fileread('config.json'));
 
 %% Some paths
 
-% BrainstormDbDir = '/Users/guiomar/Projects/brainstorm_db';
+% Directory with the segmented anatomy (e.g. freesufer output)
+AnatDir = fullfile(config.output);
+
+% Directory to store results
+ReportsDir = 'out_dir/';
+DataDir    = 'out_data/';
+
+% Directory to store brainstorm database
 % BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
 % BrainstormDbDir = 'brainstorm_db/';
-
-AnatDir = fullfile(config.output);
-% AnatDir = '/media/data/guiomar/data/anat/';
-ReportsDir = 'out_dir/';
-DataDir = 'out_data/';
 
 %% Parameters
 ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
 SubjectName = 'Subject01';
 
 %% START BRAINSTORM
-% Start Brainstorm
-disp('set db 0')
+disp(['1) Start Brainstorm on server mode']);
 
-%if ~brainstorm('status')
+% Start Brainstorm
+if ~brainstorm('status')
     brainstorm server local
-%end
-disp('set db 1')
+end
 
 % Set Brainstorm database directory
 % bst_set('BrainstormDbDir',BrainstormDbDir)
-disp('set db 2')
-% Set Brainstorm database directory interactively
-% BrainstormDbDir = gui_brainstorm('SetDatabaseFolder');
-% Get Brainstorm database directory
- BrainstormDbDir = bst_get('BrainstormDbDir');
+% BrainstormDbDir = gui_brainstorm('SetDatabaseFolder'); % interactive
+BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% CREATE PROTOCOL 
-disp(['1) Create protocol']);
+disp(['2) Create protocol']);
 
 % sProtocol.Comment = ProtocolName;
 % sProtocol.SUBJECTS = [home 'anat'];
@@ -71,30 +51,24 @@ disp(['1) Create protocol']);
 % Find existing protocol
 iProtocol = bst_get('Protocol', ProtocolName);
 
-% SELECT CURRENT PROTOCOL
-% if isempty(iProtocol)
-%     error(['Unknown protocol: ' ProtocolName]);
-% end
-% % Select the current procotol
-% gui_brainstorm('SetCurrentProtocol', iProtocol);
-
-% CREATE NEW PROTOCOL
 if ~isempty(iProtocol)
     % Delete existing protocol
     gui_brainstorm('DeleteProtocol', ProtocolName);
+    % Select the current procotol
+    % gui_brainstorm('SetCurrentProtocol', iProtocol);
 end
 % Create new protocol
 gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 
-
-%% Start report
 % Start a new report
 bst_report('Start');
 % Reset colormaps
 bst_colormaps('RestoreDefaults', 'meg');
 
+
 %% IMPORT ANATOMY
-disp(['2) Import anatomy']);
+disp(['3) Import anatomy']);
+
 % Process: Import FreeSurfer folder
 bst_process('CallProcess', 'process_import_anatomy', [], [], ...
     'subjectname', SubjectName, ...
@@ -110,7 +84,9 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 
 % //// FUTURE: load fiducial points from file if available: nas, lpa, rpa
 
-%% SAVE REPORT
+%% SAVE RESULTS
+disp(['4) Save report']);
+
 % Save and display report
 ReportFile = bst_report('Save', []);
 if ~isempty(ReportsDir) && ~isempty(ReportFile)
@@ -119,8 +95,8 @@ else
     bst_report('Open', ReportFile);
 end
 
-%% SAVE DATA
+% Save data
 copyfile([BrainstormDbDir,'/',ProtocolName], DataDir);
 
 %% DONE
-disp(['> Done!']);
+disp(['** Done!']);
