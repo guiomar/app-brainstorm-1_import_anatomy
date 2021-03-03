@@ -68,6 +68,7 @@ bst_colormaps('RestoreDefaults', 'meg');
 
 %% IMPORT ANATOMY
 disp(['3) Import anatomy']);
+disp(['Dir: ', AnatDir]);
 
 % Process: Import FreeSurfer folder
 bst_process('CallProcess', 'process_import_anatomy', [], [], ...
