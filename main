@@ -16,10 +16,6 @@ mkdir -p brainstorm_db
 # matlab -nodisplay -r main
 # ./brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98/ main.m
 
-
-# Run app in brainlife
-#singularity exec -e docker://brainlife/mcr:2020a ./compiled/main
-#singularity exec -e docker://brainlife/brainstorm:3_200616 /brainstorm3/bin/R2020a/brainstorm3.command /opt/mcr/v98 main.m
-singularity run -e docker://brainlife/brainstorm:3_200616 main.m
+singularity run -e docker://brainlife/brainstorm:3_210303 main.m
 
 
