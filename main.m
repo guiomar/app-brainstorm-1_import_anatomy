@@ -21,7 +21,7 @@ DataDir    = 'out_data/';
 
 % Directory to store brainstorm database
 % BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
-BrainstormDbDir = 'brainstorm_db/';
+% BrainstormDbDir = 'brainstorm_db/';
 
 %% Parameters
 ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
@@ -63,7 +63,9 @@ end
 % Create new protocol
 % disp(['Create new protocol']);
 % gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
- 
+
+iProtocol = 1;
+gui_brainstorm('SetCurrentProtocol', iProtocol);
 
 
 % Start a new report
@@ -92,14 +94,14 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 % //// FUTURE: load fiducial points from file if available: nas, lpa, rpa
 
 %% SAVE RESULTS
+
+% Save report
 disp(['4) Save report']);
-% Save and display report
 ReportFile = bst_report('Save', []);
-if ~isempty(ReportsDir) && ~isempty(ReportFile)
-    bst_report('Export', ReportFile, ReportsDir);
-else
-    bst_report('Open', ReportFile);
+if isempty(ReportFile)
+    disp('Empty report file');
 end
+bst_report('Export', ReportFile, ReportsDir);
 
 % Save data
 disp(['5) Save data']);
