@@ -36,7 +36,7 @@ disp(['1) Start Brainstorm on server mode']);
 % end
 
 % Set Brainstorm database directory
- bst_set('BrainstormDbDir',BrainstormDbDir)
+% bst_set('BrainstormDbDir',BrainstormDbDir)
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder'); % interactive
 % BrainstormDbDir = bst_get('BrainstormDbDir');
 
@@ -61,8 +61,8 @@ if ~isempty(iProtocol)
 end
 
 % Create new protocol
-disp(['Create new protocol']);
-gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
+% disp(['Create new protocol']);
+% gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
  
 
 
