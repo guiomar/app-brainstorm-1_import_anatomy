@@ -61,6 +61,7 @@ if ~isempty(iProtocol)
     % gui_brainstorm('SetCurrentProtocol', iProtocol);
 end
 % Create new protocol
+disp(['Create protocol1']);
 gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 
 % Start a new report
