@@ -21,7 +21,7 @@ DataDir    = 'out_data/';
 
 % Directory to store brainstorm database
 % BrainstormDbDir = '/media/data/guiomar/brainstorm_db';
-% BrainstormDbDir = 'brainstorm_db/';
+BrainstormDbDir = 'brainstorm_db/';
 
 %% Parameters
 ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
@@ -36,9 +36,9 @@ if ~brainstorm('status')
 end
 
 % Set Brainstorm database directory
-% bst_set('BrainstormDbDir',BrainstormDbDir)
+bst_set('BrainstormDbDir',BrainstormDbDir)
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder'); % interactive
-BrainstormDbDir = bst_get('BrainstormDbDir');
+% BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% CREATE PROTOCOL 
 disp(['2) Create protocol']);
