@@ -51,7 +51,8 @@ disp(['2) Create protocol']);
 % Find existing protocol
 iProtocol = bst_get('Protocol', ProtocolName);
 disp(['iProtocol: ',num2str(iProtocol)]);
-
+disp(['Delete protocol1']);
+    gui_brainstorm('DeleteProtocol1', ProtocolName);
 if ~isempty(iProtocol)
     % Delete existing protocol
     disp(['Delete protocol']);
