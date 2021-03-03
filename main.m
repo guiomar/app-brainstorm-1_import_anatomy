@@ -38,7 +38,7 @@ disp(['1) Start Brainstorm on server mode']);
 % Set Brainstorm database directory
 % bst_set('BrainstormDbDir',BrainstormDbDir)
 % BrainstormDbDir = gui_brainstorm('SetDatabaseFolder'); % interactive
-% BrainstormDbDir = bst_get('BrainstormDbDir');
+BrainstormDbDir = bst_get('BrainstormDbDir');
 
 %% CREATE PROTOCOL 
 disp(['2) Create protocol']);
@@ -93,7 +93,6 @@ bst_process('CallProcess', 'process_import_anatomy', [], [], ...
 
 %% SAVE RESULTS
 disp(['4) Save report']);
-
 % Save and display report
 ReportFile = bst_report('Save', []);
 if ~isempty(ReportsDir) && ~isempty(ReportFile)
@@ -103,6 +102,9 @@ else
 end
 
 % Save data
+disp(['5) Save data']);
+disp(['db dir: ',BrainstormDbDir]);
+
 copyfile([BrainstormDbDir,'/',ProtocolName], DataDir);
 
 %% DONE
