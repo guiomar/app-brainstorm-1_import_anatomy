@@ -24,7 +24,7 @@ DataDir    = 'out_data/';
 % BrainstormDbDir = 'brainstorm_db/';
 
 %% Parameters
-ProtocolName = 'Protocol01'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
+ProtocolName = 'Protocol02'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
 SubjectName = 'Subject01';
 
 %% START BRAINSTORM
@@ -61,11 +61,8 @@ if ~isempty(iProtocol)
 end
 
 % Create new protocol
-% disp(['Create new protocol']);
-% gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
-
-iProtocol = 1;
-gui_brainstorm('SetCurrentProtocol', iProtocol);
+disp(['Create new protocol']);
+gui_brainstorm('CreateProtocol', ProtocolName, 0, 0);
 
 
 % Start a new report
