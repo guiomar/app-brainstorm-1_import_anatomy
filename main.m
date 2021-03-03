@@ -13,7 +13,7 @@ config = jsondecode(fileread('config.json'));
 %% Some paths
 
 % Directory with the segmented anatomy (e.g. freesufer output)
-AnatDir = [fullfile(config.output),'/mri/'];
+AnatDir = [fullfile(config.output)];
 
 % Directory to store results
 ReportsDir = 'out_dir/';
@@ -104,7 +104,7 @@ bst_report('Export', ReportFile, ReportsDir);
 disp(['5) Save data']);
 disp(['db dir: ',BrainstormDbDir]);
 
-copyfile([BrainstormDbDir,'/',ProtocolName], DataDir);
+movefile([BrainstormDbDir,'/',ProtocolName], DataDir);
 
 %% DONE
 disp(['** Done!']);
