@@ -52,8 +52,8 @@ disp(['2) Create protocol']);
 iProtocol = bst_get('Protocol', ProtocolName);
 disp(['iProtocol: ',num2str(iProtocol)]);
 dir(BrainstormDbDir)
-rmdir([BrainstormDbDir,'/Protocol01']);
-rmdir([BrainstormDbDir,'/Protocol03']);
+% rmdir([BrainstormDbDir,'/Protocol01']);
+% rmdir([BrainstormDbDir,'/Protocol03']);
 dir(BrainstormDbDir)
 
 iProtocol = bst_get('Protocol', ProtocolName);
@@ -62,7 +62,6 @@ if ~isempty(iProtocol)
     % Delete existing protocol
     disp(['Delete protocol']);
     gui_brainstorm('DeleteProtocol', ProtocolName);
-
     % Select the current procotol
     % gui_brainstorm('SetCurrentProtocol', iProtocol);
 end
