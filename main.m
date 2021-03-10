@@ -56,6 +56,8 @@ if ~isempty(iProtocol)
     % Delete existing protocol
     disp(['Delete protocol']);
     gui_brainstorm('DeleteProtocol', ProtocolName);
+    dir(BrainstormDbDir)
+
     % Select the current procotol
     % gui_brainstorm('SetCurrentProtocol', iProtocol);
 end
