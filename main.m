@@ -24,7 +24,7 @@ DataDir    = 'out_data/';
 % BrainstormDbDir = 'brainstorm_db/';
 
 %% Parameters
-ProtocolName = 'Protocol02'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
+ProtocolName = 'Protocol03'; % The protocol name has to be a valid folder name (no spaces, no weird characters...)
 SubjectName = 'Subject01';
 
 %% START BRAINSTORM
