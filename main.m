@@ -1,6 +1,6 @@
 % brainlife.io App for Brainstorm MEEG data analysis
 %
-% Author: Guiomar Niso
+% Author: Guiomar Niso1
 %
 % Copyright (c) 2020 brainlife.io 
 %
