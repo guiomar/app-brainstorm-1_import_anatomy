@@ -8,7 +8,7 @@
 #
 # Author: Guiomar Niso
 
-mkdir -p out_dir
+mkdir -p out_report
 mkdir -p out_data
 mkdir -p brainstorm_db
 
