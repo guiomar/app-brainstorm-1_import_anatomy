@@ -17,5 +17,5 @@ mkdir -p brainstorm_db
 # ./brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98/ main.m
 
 # singularity run -e docker://brainlife/brainstorm:3_210303 main.m local
-singularity exec -e -B `pwd`:$HOME docker://brainlife/brainstorm:3_210303 main.m local
-# singularity run -e --bind `pwd`/home:/home/$USER docker://brainlife/brainstorm:220526 main.m local
+# singularity exec -e -B `pwd`:$HOME docker://brainlife/brainstorm:3_210303 main.m local
+singularity run -e --bind `pwd`/home:/home/$USER docker://brainlife/brainstorm:220526 main.m local
