@@ -16,7 +16,7 @@ config = jsondecode(fileread('config.json'));
 AnatDir = [fullfile(config.output)];
 
 % Directory to store results
-ReportsDir = 'out_dir/';
+ReportsDir = 'out_report/';
 DataDir    = 'out_data/';
 
 % Directory to store brainstorm database
