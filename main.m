@@ -5,6 +5,7 @@
 % Copyright (c) 2020 brainlife.io 
 %
 % Indiana University
+disp('Brainstorm function found')
 
 %% Load config.json
 % Load inputs from config.json
