@@ -1,10 +1,11 @@
 % brainlife.io App for Brainstorm MEEG data analysis
 %
-% Author: Guiomar Niso
+% Author: Guiomar Niso1
 %
 % Copyright (c) 2020 brainlife.io 
 %
 % Indiana University
+disp('Brainstorm function found')
 
 %% Load config.json
 % Load inputs from config.json
@@ -16,7 +17,7 @@ config = jsondecode(fileread('config.json'));
 AnatDir = [fullfile(config.output)];
 
 % Directory to store results
-ReportsDir = 'out_dir/';
+ReportsDir = 'out_report/';
 DataDir    = 'out_data/';
 
 % Directory to store brainstorm database
